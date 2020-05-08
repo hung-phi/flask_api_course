@@ -7,8 +7,7 @@ class UserModel(db.Model):
     username = db.Column(db.String(32))
     password = db.Column(db.String(32))
 
-    def __init__(self, _id, username, password):
-        self.id = _id
+    def __init__(self, username, password):
         self.username = username
         self.password = password
 
