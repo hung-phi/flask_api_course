@@ -1,6 +1,8 @@
-from db import db
+from src.db import db
+from src.models.db_action import DBAction
 
-class StoreModel(db.Model):
+
+class StoreModel(db.Model, DBAction):
     __tablename__ = 'stores'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -8,7 +10,7 @@ class StoreModel(db.Model):
 
     items = db.relationship('ItemModel', lazy='dynamic')
 
-    def __init__(self, name, price):
+    def __init__(self, name):
         self.name = name
 
     def jsonify(self):
@@ -16,12 +18,5 @@ class StoreModel(db.Model):
 
     @classmethod
     def find_by_name(cls, name):
-        return ItemModel.query.filter_by(name=name).first()
+        return cls.query.filter_by(name=name).first()
 
-    def save_to_db(self):
-        db.session.add(self)
-        db.session.commit()
-
-    def delete_from_db(self):
-        db.session.delete(self)
-        db.session.commit()

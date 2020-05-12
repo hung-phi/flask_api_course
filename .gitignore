@@ -1,3 +1,9 @@
 .idea/
 .env/
 src/data.db
+**/create_table.py
+**/data.py
+**/test.py
+.env
+.pyc
+**/config.py

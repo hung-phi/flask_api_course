@@ -4,20 +4,39 @@ Training course for GotIt Internship, summer 2020
 ## Installation
 `git clone` this repository.
 
-You can create a virtual environment, running on Python3. Then install required libraries.
+You can create a virtual environment(virtualenv), running on Python3. 
+
+`virtualenv .env `
+
+`source .env/bin/activate`
+
+And deactivate when you are done: `deactivate`
+
+Then install required libraries.
 
 `pip3 install -r requirements.txt`
 
-Running the server: `python3 app.py`
+It is also imperative that you set your own secret key for JWT by creating a 
+`config.py`, that has this content:
+
+`
+SECRET = 'YOUR SECRET'
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+SQLALCHEMY_DATABASE_URI = 'sqlite:///data.db'
+`
+
+Run the server: `python3 -m src.app` 
 
 ## Description
-Code followed the course _**Rest APIs with Flask and Python**_ on O'Reilly. The project is
-a REST Flask server that serves CRUD apis for a e-commerce system that have a number of 
-stores selling items. The web server also does user authorization using JWT. 
+The project is a web api server that contains information of stores and items in 
+each store. It is also accompanied with an authorization system for authenticated users.
+
+## Example Request
+You can test it in Postman with some of the sample requests by importing 
+`flask_course.postman_collection.json` to your POSTMAN app.
 
 
-## Implementation
-The project is built with Python. Libraries used are Flask, Flask_restful and SQLAlchemy.
+
 
 ## License 
 [MIT](https://github.com/xoxwaw/flask_api_course/blob/master/LICENSE)
