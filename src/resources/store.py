@@ -1,36 +1,50 @@
 from flask_restful import Resource
 
 from src.models.store import StoreModel
+from src.helper import *
 
 
 class Store(Resource):
-    def get(self, name):
+    @staticmethod
+    def get(name):
+        status, message = validate_input_string(name, 80)
+        if not status:
+            return {'message': message}, 400
         store = StoreModel.find_by_name(name)
         if store:
             return store.jsonify()
-        return {'message': 'store not found'}, 404
+        return {'message': 'store with name {} not found'.format(name)}, 404
 
-    def post(self, name):
+    @staticmethod
+    def post(name):
+        status, message = validate_input_string(name, 80)
+        if not status:
+            return {'message': message}, 400
         store = StoreModel.find_by_name(name)
         if store:
             return {'message': 'store with name {} has existed'.format(name)}, 400
         store = StoreModel(name)
         try:
-            store.save_to_db()
+            store.save_to_db(store)
         except Exception as e:
             return {'message': 'error creating store\n {}'.format(e)}, 500
         return store.jsonify(), 201
 
-    def delete(self, name):
+    @staticmethod
+    def delete(name):
+        status, message = validate_input_string(name, 80)
+        if not status:
+            return {'message': message}, 400
         store = StoreModel.find_by_name(name)
         if store:
             try:
-                store.delete_from_db()
+                store.delete_from_db(store)
             except Exception as e:
-                return {'message': 'error delete store\n {}'.format(e)}, 500
-        return {'message': 'store deleted'}
+                return {'message': 'error delete store with name {}\n {}'.format(name, e)}, 500
+        return {'message': 'store with name {} deleted'.format(name)}
 
 
 class StoreList(Resource):
-    def get(self):
+    @staticmethod
+    def get():
         return {'stores': [store.jsonify() for store in StoreModel.query.all()]}

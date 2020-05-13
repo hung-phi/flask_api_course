@@ -12,10 +12,9 @@ class ItemModel(db.Model, DBAction):
     store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
     store = db.relationship('StoreModel')
 
-    def __init__(self, name, price, store_id):
-        self.name = name
-        self.price = price
-        self.store_id = store_id
+    def __init__(self, **kwargs):
+        for key, val in kwargs.items():
+            setattr(self, key, val)
 
     def jsonify(self):
         return {'name': self.name, 'price': self.price}
