@@ -1,6 +1,5 @@
 .idea/
-.env/
-src/data.db
+venv/
 **/create_table.py
 **/data.db
 test.py

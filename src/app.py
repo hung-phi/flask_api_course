@@ -2,11 +2,10 @@ from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
 from flask_jwt import JWT, jwt_required
 
-from src.security import authenticate, identity  # import src.security
+from src.security import authenticate, identity
 from src.resources.user import UserRegister
 from src.resources.item import Item, ItemList
 from src.resources.store import Store, StoreList
-
 import src.config as cfg
 from src.db import db
 
@@ -25,10 +24,10 @@ def create_table():
 jwt = JWT(app, authenticate, identity)
 
 
-api.add_resource(Item, '/item/<string:name>')
+api.add_resource(Item, '/items/<string:name>')
 api.add_resource(ItemList, '/items')
 api.add_resource(UserRegister, '/register')
-api.add_resource(Store, '/store/<string:name>')
+api.add_resource(Store, '/stores/<string:name>')
 api.add_resource(StoreList, '/stores')
 
 if __name__ == '__main__':

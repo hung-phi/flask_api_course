@@ -1,15 +1,13 @@
 from flask_restful import Resource
 
 from src.models.store import StoreModel
-from src.helper import *
+from src.models.item import ItemModel
+from src.error import *
 
 
 class Store(Resource):
     @staticmethod
     def get(name):
-        status, message = validate_input_string(name, 80)
-        if not status:
-            return {'message': message}, 400
         store = StoreModel.find_by_name(name)
         if store:
             return store.jsonify()
@@ -17,30 +15,23 @@ class Store(Resource):
 
     @staticmethod
     def post(name):
-        status, message = validate_input_string(name, 80)
-        if not status:
-            return {'message': message}, 400
         store = StoreModel.find_by_name(name)
         if store:
             return {'message': 'store with name {} has existed'.format(name)}, 400
         store = StoreModel(name)
-        try:
-            store.save_to_db(store)
-        except Exception as e:
-            return {'message': 'error creating store\n {}'.format(e)}, 500
+        safe_run(message='error while creating store with name {}'.format(name),
+                 error_code=500)(store.save_to_db(store))
         return store.jsonify(), 201
 
     @staticmethod
     def delete(name):
-        status, message = validate_input_string(name, 80)
-        if not status:
-            return {'message': message}, 400
         store = StoreModel.find_by_name(name)
         if store:
-            try:
-                store.delete_from_db(store)
-            except Exception as e:
-                return {'message': 'error delete store with name {}\n {}'.format(name, e)}, 500
+            ItemModel.query.filter(ItemModel.store_id == store.id).delete()
+            safe_run(message='error delete store with name {}'.format(name),
+                     error_code=500)(store.delete_from_db(store))
+        else:
+            return {'message': 'store with name {} does not exist'.format(name)}, 400
         return {'message': 'store with name {} deleted'.format(name)}
 
 

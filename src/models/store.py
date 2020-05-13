@@ -1,12 +1,13 @@
 from src.db import db
 from src.models.db_action import DBAction
+from src.constants import *
 
 
 class StoreModel(db.Model, DBAction):
     __tablename__ = 'stores'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80))
+    name = db.Column(db.String(STORE_NAME_LENGTH))
 
     items = db.relationship('ItemModel', lazy='dynamic')
 
@@ -19,4 +20,3 @@ class StoreModel(db.Model, DBAction):
     @classmethod
     def find_by_name(cls, name):
         return cls.query.filter_by(name=name).first()
-

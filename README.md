@@ -6,18 +6,18 @@ Training course for GotIt Internship, summer 2020
 
 You can create a virtual environment(virtualenv), running on Python3. 
 
-`virtualenv .env `
+`python3 -m virtualenv venv`
 
-`source .env/bin/activate`
+`source venv/bin/activate`
 
 And deactivate when you are done: `deactivate`
 
 Then install required libraries.
 
-`pip3 install -r requirements.txt`
+`pip install -r requirements.txt`
 
 It is also imperative that you set your own secret key for JWT by creating a 
-`config.py`, that has this content:
+`config.py`, that has this content: (use .env instead)
 
 `SECRET = 'YOUR SECRET'`
 
@@ -25,7 +25,7 @@ It is also imperative that you set your own secret key for JWT by creating a
 
 `SQLALCHEMY_DATABASE_URI = 'sqlite:///data.db'`
 
-Run the server: `python3 -m src.app` 
+Run the server: `python -m src.app` 
 
 ## Description
 The project is a web api server that contains information of stores and items in 

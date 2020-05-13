@@ -1,12 +1,13 @@
 from src.db import db
 from src.models.db_action import DBAction
+from src.constants import *
 
 
 class ItemModel(db.Model, DBAction):
     __tablename__ = 'items'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80))
+    name = db.Column(db.String(ITEM_NAME_LENGTH))
     price = db.Column(db.Float(precision=2))
 
     store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))

@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse
 
 from src.security import *
-from src.helper import *
+from src.encoder import *
 
 
 class UserRegister(Resource):
@@ -20,15 +20,11 @@ class UserRegister(Resource):
     @staticmethod
     def post():
         data = UserRegister.parser.parse_args()
-        status, message = validate_input_string(data['username'], 32)  # validate username
-        if not status:
-            return {'message': message}, 400
-        status, message = validate_input_string(data['password'], 32)  # validate password
-        if not status:
-            return {'message': message}, 400
+
         if UserModel.find_by_username(data['username']) is not None:
             return {'message': 'user with username {} existed'.format(data['username'])}, 400
-        data['password'] = hash_password(data['password'])
-        user = UserModel(**data)
+        data['hashed_password'], data['salt'] = encoder(data['password'])
+        print({k: v for k, v in data if k != 'password'})
+        user = UserModel(**{k: v for k, v in data if k != 'password'})
         user.save_to_db(user)
         return {'message': 'user with username {} registered'.format(data['username'])}, 201
