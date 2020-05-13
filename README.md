@@ -19,13 +19,11 @@ Then install required libraries.
 It is also imperative that you set your own secret key for JWT by creating a 
 `config.py`, that has this content:
 
-`
-SECRET = 'YOUR SECRET'`
-`
-SQLALCHEMY_TRACK_MODIFICATIONS = False`
-`
-SQLALCHEMY_DATABASE_URI = 'sqlite:///data.db'
-`
+`SECRET = 'YOUR SECRET'`
+
+`SQLALCHEMY_TRACK_MODIFICATIONS = False`
+
+`SQLALCHEMY_DATABASE_URI = 'sqlite:///data.db'`
 
 Run the server: `python3 -m src.app` 
 
