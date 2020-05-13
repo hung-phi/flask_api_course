@@ -2,8 +2,8 @@
 .env/
 src/data.db
 **/create_table.py
-**/data.py
-**/test.py
+**/data.db
+test.py
 .env
 .pyc
 **/config.py
