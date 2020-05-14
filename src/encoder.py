@@ -1,10 +1,17 @@
 import hashlib, binascii, os
 
-import src.config as cfg
 from src.constants import *
 
-SEED = cfg.SEED
-ALGORITHM = cfg.HASH_ALG
+try:
+    SEED = int(os.getenv('SEED'))
+except EnvironmentError:
+    print('specify seed in .env file')
+    exit(0)
+try:
+    ALGORITHM = os.getenv('HASH_ALG')
+except EnvironmentError:
+    print('specify hash algorithm in .env file')
+    exit(0)
 
 
 def encoder(password):

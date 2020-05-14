@@ -1,9 +1,9 @@
 from src.db import db
-from src.models.db_action import DBAction
+from src.models.db_action import DBActionMixin
 from src.constants import *
 
 
-class UserModel(db.Model, DBAction):
+class UserModel(db.Model, DBActionMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)

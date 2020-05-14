@@ -16,14 +16,7 @@ Then install required libraries.
 
 `pip install -r requirements.txt`
 
-It is also imperative that you set your own secret key for JWT by creating a 
-`config.py`, that has this content: (use .env instead)
-
-`SECRET = 'YOUR SECRET'`
-
-`SQLALCHEMY_TRACK_MODIFICATIONS = False`
-
-`SQLALCHEMY_DATABASE_URI = 'sqlite:///data.db'`
+You should modify the `SECRET` variable in .env file to your secret.
 
 Run the server: `python -m src.app` 
 
@@ -32,11 +25,15 @@ The project is a web api server that contains information of stores and items in
 each store. It is also accompanied with an authorization system for authenticated users.
 
 ## Example Request
-You can test it in Postman with some of the sample requests by importing 
-`flask_course.postman_collection.json` to your POSTMAN app.
+You can test the APIs with Postman. Available routes are in `app.py`
 
+Example:
 
+`POST http://localhost:5000/register`
 
+`body:
+{"username": "abc", "password": "123"}
+`
 
 ## License 
 [MIT](https://github.com/xoxwaw/flask_api_course/blob/master/LICENSE)

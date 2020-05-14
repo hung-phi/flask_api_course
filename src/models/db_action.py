@@ -1,7 +1,7 @@
 from src.db import db
 
 
-class DBAction: # DBActionMixin
+class DBActionMixin:
     @staticmethod
     def save_to_db(obj):
         db.session.add(obj)
