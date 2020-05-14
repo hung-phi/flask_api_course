@@ -14,8 +14,7 @@ class ItemModel(db.Model, DBActionMixin):
     store = db.relationship('StoreModel')
 
     def __init__(self, **kwargs):
-        for key, val in kwargs.items():
-            setattr(self, key, val)
+        super(ItemModel, self).__init__(**kwargs)
 
     def jsonify(self):
         return {'name': self.name, 'price': self.price}

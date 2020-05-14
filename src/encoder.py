@@ -1,10 +1,12 @@
-import hashlib, binascii, os
+import hashlib
+import binascii
+import os
 
 from src.constants import *
 
 try:
     SEED = int(os.getenv('SEED'))
-except EnvironmentError:
+except TypeError:
     print('specify seed in .env file')
     exit(0)
 try:

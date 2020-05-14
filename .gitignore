@@ -3,6 +3,5 @@ venv/
 **/create_table.py
 **/data.db
 test.py
-.env
 .pyc
 **/config.py
