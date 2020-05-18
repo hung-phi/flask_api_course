@@ -1,10 +1,10 @@
 from src.models.user import UserModel
-from src.encoder import *
+from src.hash_password import verify_password
 
 
 def authenticate(username, password):
     user = UserModel.find_by_username(username)
-    if user is not None and decoder(user.hashed_password, user.salt, password):
+    if user is not None and verify_password(user.hashed_password, user.salt, password):
         return user
     return None
 

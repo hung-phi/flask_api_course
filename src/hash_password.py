@@ -2,18 +2,10 @@ import hashlib
 import binascii
 import os
 
-from src.constants import *
+from src.constants import SALT_LEN
 
-try:
-    SEED = int(os.getenv('SEED'))
-except TypeError:
-    print('specify seed in .env file')
-    exit(0)
-try:
-    ALGORITHM = os.getenv('HASH_ALG')
-except EnvironmentError:
-    print('specify hash algorithm in .env file')
-    exit(0)
+SEED = int(os.getenv('SEED'))
+ALGORITHM = os.getenv('HASH_ALG')
 
 
 def encoder(password):
@@ -26,7 +18,7 @@ def encoder(password):
     return pwdhash.decode('ascii'), salt
 
 
-def decoder(stored_pwd, salt, provided_pwd):
+def verify_password(stored_pwd, salt, provided_pwd):
     """Verify a stored password against one provided by user.
     """
     pwdhash = hashlib.pbkdf2_hmac(ALGORITHM,

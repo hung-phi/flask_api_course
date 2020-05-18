@@ -3,7 +3,7 @@ from functools import wraps
 
 from src.models.store import StoreModel
 from src.models.item import ItemModel
-from src.error import *
+from src.error import safe_run
 
 
 class MSG:

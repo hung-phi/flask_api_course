@@ -1,6 +1,6 @@
 from src.db import db
-from src.models.db_action import DBActionMixin
-from src.constants import *
+from src.models.db_action_mixin import DBActionMixin
+from src.constants import SALT_LEN, HASH_LEN, USERNAME_LEN
 
 
 class UserModel(db.Model, DBActionMixin):

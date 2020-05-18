@@ -1,8 +1,9 @@
 from flask_restful import Resource, Api, reqparse
 from flask_jwt import jwt_required
+from functools import wraps
 
 from src.models.item import ItemModel
-from src.error import *
+from src.error import safe_run
 
 
 class MSG:

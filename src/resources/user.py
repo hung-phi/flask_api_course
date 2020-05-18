@@ -1,9 +1,8 @@
 from flask_restful import Resource, reqparse
 
-from src.security import *
-from src.encoder import *
-from src.constants import *
-
+from src.hash_password import encoder
+from src.constants import USERNAME_LEN, PASSWORD_LEN
+from src.models.user import UserModel
 
 class MSG:
     OK = 'OK'

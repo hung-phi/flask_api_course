@@ -1,13 +1,13 @@
 from src.db import db
-from src.models.db_action import DBActionMixin
-from src.constants import *
+from src.models.db_action_mixin import DBActionMixin
+from src.constants import STORE_NAME_LEN
 
 
 class StoreModel(db.Model, DBActionMixin):
     __tablename__ = 'stores'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(STORE_NAME_LENGTH))
+    name = db.Column(db.String(STORE_NAME_LEN))
 
     items = db.relationship('ItemModel', lazy='dynamic')
 
